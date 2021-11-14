@@ -1,7 +1,14 @@
-from fastapi import FastAPI
-from .router import app as router_app
-from .system import app as system_app
+from os import environ as env
+from dependency_injector.wiring import Provide, inject
+from fastapi import FastAPI, Request, Depends
 
-app = FastAPI()
-app.mount('/router', router_app)
-app.mount('/system', system_app)
+from .configuration import WebhookRouterConfig
+from .router import RouterService
+from . import __version__, api
+
+
+print(f'Starting up webhook_router {__version__}')
+
+app = api.app
+app.configuration = WebhookRouterConfig()
+app.configuration.wire(modules=['.api'])

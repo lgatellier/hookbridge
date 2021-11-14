@@ -1,7 +1,13 @@
-from fastapi import FastAPI, Request
+from fastapi import Request
 
-app = FastAPI()
+from webhook_router.exceptions import NonExistingRouteException
+from .routes import RoutesService
 
-@app.post('/dispatch')
-async def dispatch(req: Request):
-    return { "message": "Hello router" }
+class RouterService:
+    def __init__(self, routes: RoutesService) -> None:
+        print('Initializing RouterService')
+        self.__routes = routes
+
+    def dispatch(self, route_name: str, req: Request):
+        route = self.__routes.get_route(route_name)
+        print(f'Dispatching request to route {route.name}')
