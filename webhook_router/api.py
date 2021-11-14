@@ -15,7 +15,6 @@ async def dispatch(
         route_name: str,
         req: Request,
         router_service: RouterService = Depends(Provide[WebhookRouterConfig.router_service])):
-    print(router_service)
     try:
         router_service.dispatch(route_name, req)
         return {

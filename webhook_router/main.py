@@ -1,3 +1,4 @@
+import logging
 from os import environ as env
 from dependency_injector.wiring import Provide, inject
 from fastapi import FastAPI, Request, Depends
@@ -6,8 +7,10 @@ from .configuration import WebhookRouterConfig
 from .router import RouterService
 from . import __version__, api
 
+logging.basicConfig(encoding='utf-8', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-print(f'Starting up webhook_router {__version__}')
+logger.info(f'Starting up webhook_router {__version__}')
 
 app = api.app
 app.configuration = WebhookRouterConfig()
