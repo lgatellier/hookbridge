@@ -6,7 +6,7 @@ import yaml
 from . import routes, router
 
 
-class WebhookRouterConfig(containers.DeclarativeContainer):
+class WebhookGatewayConfig(containers.DeclarativeContainer):
     """
     Application dependency injection configuration
     """

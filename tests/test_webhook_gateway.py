@@ -1,4 +1,4 @@
-from webhook_router import __version__
+from webhook_gateway import __version__
 
 
 def test_version():

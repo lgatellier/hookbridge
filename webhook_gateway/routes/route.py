@@ -1,15 +1,16 @@
-from fastapi import Request
 import logging
+from ..request import WebhookRequest
 
-from .rules import parse_input_rule
 from .exceptions import MissingAuthException, InvalidAuthException
+from .rules import parse_input_rule
+from .rules.output import OutputRule
 
 
 logger = logging.getLogger(__name__)
 
 
 class Route:
-    def __init__(self, name: str, cfg: object):
+    def __init__(self, name: str, cfg: dict):
         logger.debug(f"Loading route {name}")
         self.__name = name
         self.__config = cfg
@@ -17,16 +18,17 @@ class Route:
         self.__input_rules = [
             parse_input_rule(k, v) for k, v in cfg["input"]["body"].items()
         ]
+        self.__output_rules = [OutputRule(v) for v in cfg["output"]]
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @property
-    def config(self):
+    def config(self) -> dict:
         return self.__config
 
-    def validate_auth(self, req: Request) -> None:
+    def validate_auth(self, req: WebhookRequest) -> None:
         """
         Validates auth headers in given Request for current Route.
         Raises MissingAuthException or InvalidAuthException when an auth header is missing or invalid.
@@ -37,6 +39,10 @@ class Route:
             elif req.headers[k] != v:
                 raise InvalidAuthException(k)
 
-    def validate_inputs(self, req: Request) -> None:
+    def validate_inputs(self, req: WebhookRequest) -> None:
         for rule in self.__input_rules:
+            rule.apply(req)
+
+    def dispatch(self, req: WebhookRequest) -> None:
+        for rule in self.__output_rules:
             rule.apply(req)

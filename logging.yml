@@ -29,11 +29,11 @@ root:
   propagate: no
 
 loggers:
-  webhook_router:
+  webhook_gateway:
     level: DEBUG
     handlers: [console]
     propagate: no
-  
+
   uvicorn:
     level: INFO
     handlers: [console]

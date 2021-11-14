@@ -1,15 +1,15 @@
 import abc
 import logging
-from fastapi import Request
 from jsonpath_ng import parse
 from typing import final
 
-from .exceptions import RequestDoNotMatchRouteException
+from ...request import WebhookRequest
+from ..exceptions import RequestDoNotMatchRouteException
 
 logger = logging.getLogger(__name__)
 
 
-class RouteInputRule:
+class InputRule:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, detail: str, config: dict) -> None:
@@ -23,7 +23,7 @@ class RouteInputRule:
         return self.__config
 
     @final
-    def apply(self, req: Request) -> None:
+    def apply(self, req: WebhookRequest) -> None:
         if not self._do_apply(req):
             raise RequestDoNotMatchRouteException(self.__name, self.__detail)
 
@@ -32,7 +32,7 @@ class RouteInputRule:
         pass
 
 
-class RouteBodyInputRule(RouteInputRule):
+class RouteBodyInputRule(InputRule):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, property_json_path, config: dict) -> None:
@@ -41,7 +41,7 @@ class RouteBodyInputRule(RouteInputRule):
 
     @final
     def _do_apply(self, req) -> bool:
-        return self._matches_property(self.__json_path_expr.find(req.json_body))
+        return self._matches_property(self.__json_path_expr.find(req.body))
 
     @abc.abstractmethod
     def _matches_property(self, matches: list) -> bool:
@@ -65,19 +65,10 @@ class BodyPropertyEqualsToInputRule(RouteBodyInputRule):
         return True
 
 
-available_checks = {
+input_rules = {
     "present": BodyPropertyPresentInputRule,
     "equalsTo": BodyPropertyEqualsToInputRule,
 }
-
-
-def parse_input_rule(key, value) -> RouteInputRule:
-    input_check_type = read_input_rule_type(key, value)
-
-    if input_check_type not in available_checks.keys():
-        raise Exception(f"Unknown input check type '{input_check_type}'")
-
-    return available_checks[input_check_type](key, value)
 
 
 def read_input_rule_type(key, value):
@@ -90,3 +81,12 @@ def read_input_rule_type(key, value):
             return list(value.keys())[0]
 
     raise Exception(f"Invalid route input configuration format for key {key}")
+
+
+def parse_input_rule(key: str, value) -> InputRule:
+    input_rule_type = read_input_rule_type(key, value)
+
+    if input_rule_type not in input_rules.keys():
+        raise Exception(f"Unknown input check type '{input_rule_type}'")
+
+    return input_rules[input_rule_type](key, value)

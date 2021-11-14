@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "webhook-router"
+name = "webhook-gateway"
 version = "0.1.0"
-description = "A configurable router for JSON webhooks"
+description = "A configurable webhook gateway. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !"
 authors = ["Léo GATELLIER <github@leogatellier.fr>"]
+classifiers = ["License :: OSI Approved :: Apache Software License", "Development Status :: 2 - Pre-Alpha", "Topic :: Internet :: WWW/HTTP", "Topic :: System :: Networking"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -12,6 +13,7 @@ dependency-injector = "^4.37.0"
 PyYAML = "^6.0"
 coloredlogs = "^15.0.1"
 jsonpath-ng = "^1.5.3"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
