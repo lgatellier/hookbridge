@@ -1,8 +1,7 @@
 import abc
-from enum import Enum
 import logging
 from fastapi import Request
-from jsonpath_ng import jsonpath, parse
+from jsonpath_ng import parse
 from typing import final
 
 from .exceptions import RequestDoNotMatchRouteException
@@ -53,6 +52,9 @@ class BodyPropertyPresentInputRule(RouteBodyInputRule):
 
 class BodyPropertyEqualsToInputRule(RouteBodyInputRule):
     def _matches_property(self, matches: list) -> bool:
+        if len(matches) == 0:
+            return False
+
         for m in matches:
             if m.value != self.config['equalsTo']:
                 return False
