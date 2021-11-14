@@ -1,9 +1,7 @@
 from datetime import datetime
 from dependency_injector.wiring import inject, Provide
 from fastapi import Depends, FastAPI, Request
-from fastapi.responses import JSONResponse
 import json
-from starlette.types import Message
 
 from webhook_router.routes.service import RouteService
 

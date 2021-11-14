@@ -1,2 +1,2 @@
-from .route import Route
-from .service import RouteService
+from .route import Route  # noqa
+from .service import RouteService  # noqa

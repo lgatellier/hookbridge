@@ -1,7 +1,5 @@
 from dependency_injector import containers, providers
-from dependency_injector.wiring import Provide, inject
 import logging
-from logging import config
 import os
 import yaml
 

@@ -1,8 +1,6 @@
-import json
 import unittest
 
 from fastapi import Request
-from starlette.types import Scope
 
 from webhook_router.routes.exceptions import RequestDoNotMatchRouteException
 from webhook_router.routes.rules import (

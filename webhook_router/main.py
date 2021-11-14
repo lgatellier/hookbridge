@@ -1,11 +1,6 @@
-from dependency_injector.wiring import Provide, inject
-from fastapi import FastAPI, Request, Depends
 import logging
-from os import environ as env
-import sys
 
 from .configuration import WebhookRouterConfig, setup_logging
-from .router import RouterService
 from . import __version__, api
 
 setup_logging()
