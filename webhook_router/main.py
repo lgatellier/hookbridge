@@ -11,8 +11,8 @@ from . import __version__, api
 setup_logging()
 
 logger = logging.getLogger(__name__)
-logger.info(f'Starting up webhook_router {__version__}')
+logger.info(f"Starting up webhook_router {__version__}")
 
 app = api.api
 app.configuration = WebhookRouterConfig()
-app.configuration.wire(modules=['.api'])
+app.configuration.wire(modules=[".api"])

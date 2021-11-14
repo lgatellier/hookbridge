@@ -8,6 +8,7 @@ from .exceptions import RequestDoNotMatchRouteException
 
 logger = logging.getLogger(__name__)
 
+
 class RouteInputRule:
     __metaclass__ = abc.ABCMeta
 
@@ -46,9 +47,11 @@ class RouteBodyInputRule(RouteInputRule):
     def _matches_property(self, matches: list) -> bool:
         return False
 
+
 class BodyPropertyPresentInputRule(RouteBodyInputRule):
     def _matches_property(self, matches: list) -> bool:
         return len(matches) > 0
+
 
 class BodyPropertyEqualsToInputRule(RouteBodyInputRule):
     def _matches_property(self, matches: list) -> bool:
@@ -56,15 +59,17 @@ class BodyPropertyEqualsToInputRule(RouteBodyInputRule):
             return False
 
         for m in matches:
-            if m.value != self.config['equalsTo']:
+            if m.value != self.config["equalsTo"]:
                 return False
 
         return True
 
+
 available_checks = {
-    'present': BodyPropertyPresentInputRule,
-    'equalsTo': BodyPropertyEqualsToInputRule
+    "present": BodyPropertyPresentInputRule,
+    "equalsTo": BodyPropertyEqualsToInputRule,
 }
+
 
 def parse_input_rule(key, value) -> RouteInputRule:
     input_check_type = read_input_rule_type(key, value)
@@ -74,13 +79,14 @@ def parse_input_rule(key, value) -> RouteInputRule:
 
     return available_checks[input_check_type](key, value)
 
+
 def read_input_rule_type(key, value):
     if isinstance(value, str):
         return value
     elif isinstance(value, dict):
-        if 'type' in value.keys():
-            return value['type']
+        if "type" in value.keys():
+            return value["type"]
         elif len(value.keys()):
             return list(value.keys())[0]
 
-    raise Exception(f'Invalid route input configuration format for key {key}')
+    raise Exception(f"Invalid route input configuration format for key {key}")

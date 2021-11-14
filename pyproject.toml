@@ -12,6 +12,7 @@ dependency-injector = "^4.37.0"
 PyYAML = "^6.0"
 coloredlogs = "^15.0.1"
 jsonpath-ng = "^1.5.3"
+black = "^21.10b0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
