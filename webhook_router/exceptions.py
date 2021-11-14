@@ -1,10 +1,13 @@
-class NonExistingRouteException(Exception):
-    MESSAGE_PATTERN = 'Route \'{0}\' does not exist'
+from fastapi import HTTPException
 
-    def __init__(self, route_name):
-        self.__route_name = route_name
-        super().__init__(NonExistingRouteException.MESSAGE_PATTERN.format(route_name))
+class HTTPExceptionWithParameters(HTTPException):
+    def __init__(self, message, *parameters, http_status = 500) -> None:
+        super().__init__(status_code=http_status, detail=message.format(*parameters))
 
-    @property
-    def route_name(self):
-        return self.__route_name
+class UnauthorizedAccessException(HTTPExceptionWithParameters):
+    '''
+    Unauthorized accesses-related exception.
+    Always gives HTTP 401 error with given message, formatted with parameters
+    '''
+    def __init__(self, message, *parameters) -> None:
+        super().__init__(message, *parameters, http_status=401)

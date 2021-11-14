@@ -1,5 +1,14 @@
 {
-    "route_1": {
-    
+    "oceane": {
+        "auth_headers": {
+            "X-Api-Token": "MySuperToken"
+        },
+        "input": {
+            "body": {
+                "$.num": {
+                    "equalsTo": "12345"
+                }
+            }
+        }
     }
 }

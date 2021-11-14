@@ -9,6 +9,9 @@ python = "^3.10"
 fastapi = "^0.70.0"
 uvicorn = "^0.15.0"
 dependency-injector = "^4.37.0"
+PyYAML = "^6.0"
+coloredlogs = "^15.0.1"
+jsonpath-ng = "^1.5.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

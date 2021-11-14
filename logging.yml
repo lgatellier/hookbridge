@@ -1,0 +1,44 @@
+version: 1
+disable_existing_loggers: true
+
+formatters:
+  standard:
+    format: "%(asctime)s - %(name)s [%(levelname)s] %(message)s"
+  access:
+    format: "%(asctime)s - %(message)s"
+  error:
+    format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: standard
+    stream: ext://sys.stdout
+  access:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: access
+    filename: 'access.log'
+    encoding: 'utf-8'
+
+
+root:
+  level: NOTSET
+  handlers: [console]
+  propagate: no
+
+loggers:
+  webhook_router:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+  
+  uvicorn:
+    level: INFO
+    handlers: [console]
+    propagate: no
+  uvicorn.access:
+    level: INFO
+    handlers: [console, access]
+    propagate: no
