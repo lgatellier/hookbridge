@@ -3,6 +3,8 @@ import logging
 from os import access, R_OK
 from os.path import isfile
 
+from webhook_gateway.routes.rules.output import CallResult
+
 from .route import Route
 from .exceptions import NonExistingRouteException
 from ..request import WebhookRequest
@@ -35,10 +37,10 @@ class RouteService:
             raise NonExistingRouteException(route_name)
         return self.__routes[route_name]
 
-    def dispatch(self, route_name: str, req: WebhookRequest):
+    def dispatch(self, route_name: str, req: WebhookRequest) -> list[CallResult]:
         route = self.get_route(route_name)
         logger.debug(f"Dispatching request to route {route.name}")
 
         route.validate_auth(req)
         route.validate_inputs(req)
-        route.dispatch(req)
+        return route.dispatch(req)

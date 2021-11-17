@@ -9,6 +9,16 @@
                     "equalsTo": "12345"
                 }
             }
-        }
+        },
+        "output": [{
+            "name": "gitlab",
+            "url": "https://gitlab.com/api/v4/projects/lgatellier%2Ftest/issues",
+            "headers": {
+                "Private-Token": "glpat--1QHuDYogEZdLw6nxB42"
+            },
+            "body": {
+                "title": "fromInput"
+            }
+        }]
     }
 }

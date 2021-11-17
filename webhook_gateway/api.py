@@ -21,8 +21,9 @@ async def dispatch(
 
     wrapper_req = WebhookRequest(req)
     await wrapper_req.init()  # Awaits request body
-    routes.dispatch(route_name, wrapper_req)
-    return {"message": "Hello gateway", "route": route_name}
+    call_results = routes.dispatch(route_name, wrapper_req)
+    print(call_results)
+    return {"route": route_name, "called_rules": [r.__dict__ for r in call_results]}
 
 
 @api.get("/status")

@@ -3,7 +3,7 @@ from ..request import WebhookRequest
 
 from .exceptions import MissingAuthException, InvalidAuthException
 from .rules import parse_input_rule
-from .rules.output import OutputRule
+from .rules.output import CallResult, OutputRule
 
 
 logger = logging.getLogger(__name__)
@@ -43,6 +43,9 @@ class Route:
         for rule in self.__input_rules:
             rule.apply(req)
 
-    def dispatch(self, req: WebhookRequest) -> None:
+    def dispatch(self, req: WebhookRequest) -> list[CallResult]:
+        results: list[CallResult] = []
         for rule in self.__output_rules:
-            rule.apply(req)
+            call_result = rule.apply(req)
+            results.append(call_result)
+        return results
