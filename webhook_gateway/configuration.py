@@ -3,7 +3,7 @@ import logging
 import os
 import yaml
 
-from . import routes, router
+from . import routes
 
 
 class WebhookGatewayConfig(containers.DeclarativeContainer):
@@ -12,10 +12,9 @@ class WebhookGatewayConfig(containers.DeclarativeContainer):
     """
 
     config = providers.Configuration()
-    config.config_file.from_env("ROUTER_CONFIG", "routes.json")
+    config.config_file.from_env("ROUTES_CONFIG", "routes.json")
 
     routes_service = providers.Singleton(routes.RouteService, config.config_file)
-    router_service = providers.Singleton(router.RouterService, routes_service)
 
     wiring_config = containers.WiringConfiguration(modules=[".main"])
 

@@ -1,4 +1,4 @@
-# Webhook router
+# Webhook Gateway
 A configurable webhook gateway. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !
 
 This project is currently under development. No stable release is available at the moment.
