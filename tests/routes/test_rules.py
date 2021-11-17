@@ -10,25 +10,46 @@ from webhook_gateway.routes.rules import (
 
 
 class InputRulesTest(unittest.TestCase):
+    def do_test(self, cls: type, rule: str, request_body: dict, rule_params={}):
+        cls(rule, rule_params).apply(MockedHTTPRequest(request_body))
+
     def test_BodyPropertyPresentInputRule_absent(self):
-        rule = BodyPropertyPresentInputRule("$.num", {})
         with self.assertRaises(RequestDoNotMatchRouteException):
-            rule.apply(MockedHTTPRequest({"number": "123456"}))
+            self.do_test(
+                cls=BodyPropertyPresentInputRule,
+                rule="$.num",
+                request_body={"number": "123456"},
+            )
 
     def test_BodyPropertyPresentInputRule_present(self):
-        rule = BodyPropertyPresentInputRule("$.num", {})
-        rule.apply(MockedHTTPRequest({"num": "123456"}))
+        self.do_test(
+            cls=BodyPropertyPresentInputRule,
+            rule="$.num",
+            request_body={"num": "123456"},
+        )
 
     def test_BodyPropertyEqualsToInputRule_valid(self):
-        rule = BodyPropertyEqualsToInputRule("$.num", {"equalsTo": "123456"})
-        rule.apply(MockedHTTPRequest({"num": "123456"}))
+        self.do_test(
+            cls=BodyPropertyEqualsToInputRule,
+            rule="$.num",
+            rule_params={"equalsTo": "123456"},
+            request_body={"num": "123456"},
+        )
 
     def test_BodyPropertyEqualsToInputRule_invalid(self):
-        rule = BodyPropertyEqualsToInputRule("$.num", {"equalsTo": "123456"})
         with self.assertRaises(RequestDoNotMatchRouteException):
-            rule.apply(MockedHTTPRequest({"num": "wrongvalue"}))
+            self.do_test(
+                cls=BodyPropertyEqualsToInputRule,
+                rule="$.num",
+                rule_params={"equalsTo": "123456"},
+                request_body={"num": "wrongvalue"},
+            )
 
     def test_BodyPropertyEqualsToInputRule_absent(self):
-        rule = BodyPropertyEqualsToInputRule("$.num", {"equalsTo": "123456"})
         with self.assertRaises(RequestDoNotMatchRouteException):
-            rule.apply(MockedHTTPRequest({"number": "123456"}))
+            self.do_test(
+                cls=BodyPropertyEqualsToInputRule,
+                rule="$.num",
+                rule_params={"equalsTo": "123456"},
+                request_body={"number": "123456"},
+            )
