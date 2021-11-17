@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 class InputRule:
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, detail: str, config: dict) -> None:
+    def __init__(self, target: str, config: dict) -> None:
         self.__name = self.__class__.__name__
-        self.__detail = detail
+        self.__target = target
         self.__config = config
-        logger.debug(f"Loading rule {self.__name} with detail {detail}")
+        logger.debug(f"Loading rule {self.__name} with target {target}")
 
     @property
     def config(self):
@@ -25,7 +25,7 @@ class InputRule:
     @final
     def apply(self, req: WebhookRequest) -> None:
         if not self._do_apply(req):
-            raise RequestDoNotMatchRouteException(self.__name, self.__detail)
+            raise RequestDoNotMatchRouteException(self.__name, self.__target)
 
     @abc.abstractmethod
     def _do_apply(self, req) -> bool:

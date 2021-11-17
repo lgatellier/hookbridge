@@ -17,10 +17,10 @@ class InvalidAuthException(UnauthorizedAccessException):
 
 
 class RequestDoNotMatchRouteException(HTTPExceptionWithParameters):
-    def __init__(self, rule_name, detail) -> None:
+    def __init__(self, rule_name, target) -> None:
         super().__init__(
-            "Request violates a '{0}' rule. Detail : '{1}'",
+            "Request violates a '{0}' rule for target '{1}'",
             rule_name,
-            detail,
+            target,
             http_status=400,
         )
