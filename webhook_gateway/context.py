@@ -21,7 +21,7 @@ class ExecutionContext:
     def set(self, key, value) -> None:
         logger.debug(f"Setting variable {key} to {value}")
         if key in self.__variables:
-            logger.warn(
+            logger.warning(
                 f"Overriding request context variable {key} ! Possible misconfiguration"
             )
         self.__variables[key] = value
@@ -41,7 +41,7 @@ class ExecutionContext:
             logger.debug(f"Resolved to {var_value}")
             return var_value
         else:
-            logger.warn(
+            logger.warning(
                 f"Unable to resolve {var_name} from {source}. Possible misconfiguration"
             )
             return f"#{source}[{var_name}]"
