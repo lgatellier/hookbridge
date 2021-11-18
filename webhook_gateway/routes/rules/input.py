@@ -3,6 +3,8 @@ import logging
 from jsonpath_ng import parse
 from typing import final
 
+from jsonpath_ng.jsonpath import DatumInContext
+
 from ...request import WebhookRequest
 from ..exceptions import RequestDoNotMatchRouteException
 
@@ -16,11 +18,23 @@ class InputRule:
         self.__name = self.__class__.__name__
         self.__target = target
         self.__config = config
+        if "context_variable" in config:
+            self.__variable_name = config["context_variable"]
+        else:
+            self.__variable_name = None
         logger.debug(f"Loading rule {self.__name} with target {target}")
+
+    @property
+    def target(self):
+        return self.__target
 
     @property
     def config(self):
         return self.__config
+
+    @property
+    def variable_name(self):
+        return self.__variable_name
 
     @final
     def apply(self, req: WebhookRequest) -> None:
@@ -35,13 +49,19 @@ class InputRule:
 class RouteBodyInputRule(InputRule):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, property_json_path, config: dict) -> None:
+    def __init__(self, property_json_path: str, config: dict) -> None:
         super().__init__(property_json_path, config)
         self.__json_path_expr = parse(property_json_path)
 
     @final
-    def _do_apply(self, req) -> bool:
-        return self._matches_property(self.__json_path_expr.find(req.body))
+    def _do_apply(self, req: WebhookRequest) -> bool:
+        matches: list[DatumInContext] = self.__json_path_expr.find(req.body)
+
+        if self.variable_name:
+            var_value = matches[0] if len(matches) > 0 else None
+            req.context.set(self.variable_name, var_value.value)
+
+        return self._matches_property(matches)
 
     @abc.abstractmethod
     def _matches_property(self, matches: list) -> bool:

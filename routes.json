@@ -6,7 +6,8 @@
         "input": {
             "body": {
                 "$.num": {
-                    "equalsTo": "12345"
+                    "equalsTo": "12345",
+                    "context_variable": "TICKET_NUM"
                 }
             }
         },
@@ -14,10 +15,10 @@
             "name": "gitlab",
             "url": "https://gitlab.com/api/v4/projects/lgatellier%2Ftest/issues",
             "headers": {
-                "Private-Token": "glpat--1QHuDYogEZdLw6nxB42"
+                "Private-Token": "#env[GITLAB_API_TOKEN]"
             },
             "body": {
-                "title": "fromInput"
+                "title": "Océane #context[TICKET_NUM]"
             }
         }]
     }

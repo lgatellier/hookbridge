@@ -19,17 +19,13 @@ class OutputRule:
 
     def apply(self, req: WebhookRequest):
         logger.debug(f"apply: Calling {self.name}")
-        headers = self.__eval_headers(req)
-        body = self.__eval_body(req)
-        response = requests.post(self.__url, headers=headers, data=body)
+        response = requests.post(
+            self.__url,
+            headers=req.context.apply(self.__headers),
+            data=req.context.apply(self.__body),
+        )
         logger.debug(f"apply: {self.name} got HTTP status {response.status_code}")
         return CallResult(rule_name=self.name, http_status=response.status_code)
-
-    def __eval_headers(self, req: WebhookRequest):
-        return self.__headers
-
-    def __eval_body(self, req: WebhookRequest):
-        return self.__body
 
 
 class CallResult:
