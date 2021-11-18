@@ -58,8 +58,8 @@ class RouteBodyInputRule(InputRule):
         matches: list[DatumInContext] = self.__json_path_expr.find(req.body)
 
         if self.variable_name:
-            var_value = matches[0] if len(matches) > 0 else None
-            req.context.set(self.variable_name, var_value.value)
+            var_value = matches[0].value if len(matches) > 0 else None
+            req.context.set(self.variable_name, var_value)
 
         return self._matches_property(matches)
 
