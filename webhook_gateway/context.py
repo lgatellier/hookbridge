@@ -19,6 +19,7 @@ class ExecutionContext:
         return self.__variables[key] if key in self.__variables else None
 
     def set(self, key, value) -> None:
+        logger.debug(f"Setting variable {key} to {value}")
         if key in self.__variables:
             logger.warn(
                 f"Overriding request context variable {key} ! Possible misconfiguration"

@@ -19,6 +19,9 @@
             },
             "body": {
                 "title": "Océane #context[TICKET_NUM]"
+            },
+            "context_variables": {
+                "$.id": "GITLAB_ISSUE_ID"
             }
         }]
     }

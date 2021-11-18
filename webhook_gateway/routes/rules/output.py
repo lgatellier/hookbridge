@@ -1,3 +1,6 @@
+import json
+from json.decoder import JSONDecodeError
+from jsonpath_ng import parse
 import logging
 import requests
 
@@ -12,6 +15,10 @@ class OutputRule:
         self.__url = obj["url"]
         self.__headers = obj["headers"]
         self.__body = obj["body"]
+        self.__variables = {
+            var_name: parse(json_path)
+            for json_path, var_name in obj["context_variables"].items()
+        }
 
     @property
     def name(self):
@@ -25,6 +32,15 @@ class OutputRule:
             data=req.context.apply(self.__body),
         )
         logger.debug(f"apply: {self.name} got HTTP status {response.status_code}")
+        try:
+            json_object = json.loads(response.content)
+            for var_name, json_path_expr in self.__variables.items():
+                matches = json_path_expr.find(json_object)
+                var_value = matches[0].value if len(matches) > 0 else None
+                req.context.set(var_name, var_value)
+        except JSONDecodeError:
+            logger.debug(f"{self.name} response body is not JSON")
+            pass
         return CallResult(rule_name=self.name, http_status=response.status_code)
 
 
