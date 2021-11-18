@@ -1,6 +1,6 @@
 import logging
 import re
-from typing import Any
+from typing import Any, Optional, Union
 from os import environ as env
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ class ExecutionContext:
             )
         self.__variables[key] = value
 
-    def apply(self, obj: str | dict):
+    def apply(self, obj: Union[str, dict]):
         if isinstance(obj, str):
             return INJECTION_PATTERN.sub(self.resolve_match, obj)
         elif isinstance(obj, dict):
@@ -45,7 +45,7 @@ class ExecutionContext:
             )
             return f"#{source}[{var_name}]"
 
-    def resolve_variable(self, source: str, var_name: str) -> str | None:
+    def resolve_variable(self, source: str, var_name: str) -> Optional[str]:
         if source == "context" and self.has(var_name):
             return self.get(var_name)
         elif source == "env" and var_name in env:
