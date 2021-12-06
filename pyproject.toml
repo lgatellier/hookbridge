@@ -18,7 +18,7 @@ requests = "^2.26.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 tox = "^3.24.4"
-black = "^21.11b1"
+black = "^21.12b0"
 flake8 = "^4.0.1"
 
 [build-system]
