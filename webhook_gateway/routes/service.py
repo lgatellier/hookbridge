@@ -6,6 +6,7 @@ from os.path import isfile
 from webhook_gateway.routes.rules.output import CallResult
 
 from .route import Route
+from .validator import validate_route
 from .exceptions import NonExistingRouteException
 from ..request import WebhookRequest
 
@@ -30,6 +31,11 @@ class RouteService:
     @property
     def route_count(self):
         return len(self.__routes)
+
+    def validate_routes(self):
+        # Validate routes configuration
+        for r in self.__routes.values():
+            validate_route(r)
 
     def get_route(self, route_name) -> Route:
         logger.debug(f"Looking for route {route_name}")

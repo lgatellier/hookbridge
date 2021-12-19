@@ -28,6 +28,14 @@ class Route:
     def config(self) -> dict:
         return self.__config
 
+    @property
+    def input_rules(self):
+        return self.__input_rules
+
+    @property
+    def output_rules(self):
+        return self.__output_rules
+
     def validate_auth(self, req: WebhookRequest) -> None:
         """
         Validates auth headers in given Request for current Route.

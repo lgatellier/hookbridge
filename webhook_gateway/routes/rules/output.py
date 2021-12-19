@@ -1,5 +1,6 @@
 import json
 from json.decoder import JSONDecodeError
+from typing import Optional
 from jsonpath_ng import parse
 import logging
 import requests
@@ -21,8 +22,20 @@ class OutputRule:
         }
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
+
+    @property
+    def headers(self) -> Optional[dict]:
+        return self.__headers
+
+    @property
+    def body(self) -> dict:
+        return self.__body
+
+    @property
+    def variables(self) -> Optional[dict]:
+        return self.__variables
 
     def apply(self, req: WebhookRequest):
         logger.debug(f"apply: Calling {self.name}")

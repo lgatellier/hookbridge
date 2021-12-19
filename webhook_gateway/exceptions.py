@@ -14,3 +14,7 @@ class UnauthorizedAccessException(HTTPExceptionWithParameters):
 
     def __init__(self, message, *parameters) -> None:
         super().__init__(message, *parameters, http_status=401)
+
+
+class ConfigurationException(Exception):
+    pass
