@@ -20,7 +20,7 @@ class RouteService:
             config_file is not None
             and isfile(config_file)
             and access(config_file, R_OK)
-        ), "File does not exist or is not readable"
+        ), f"File {config_file} does not exist or is not readable"
 
         logger.info(f"Loading routes file '{config_file}'")
         with open(config_file, "r") as file:
