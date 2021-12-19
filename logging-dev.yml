@@ -18,15 +18,16 @@ handlers:
 
 
 root:
-  level: INFO
+  level: NOTSET
   handlers: [console]
   propagate: no
 
 loggers:
   webhook_gateway:
-    level: INFO
+    level: DEBUG
     handlers: [console]
     propagate: no
+
   uvicorn:
     level: INFO
     handlers: [console]
