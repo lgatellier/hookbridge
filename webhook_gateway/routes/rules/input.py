@@ -1,7 +1,7 @@
 import abc
 import logging
 from jsonpath_ng import parse
-from typing import final
+from typing import Optional, final
 
 from jsonpath_ng.jsonpath import DatumInContext
 
@@ -25,15 +25,15 @@ class InputRule:
         logger.debug(f"Loading rule {self.__name} with target {target}")
 
     @property
-    def target(self):
+    def target(self) -> Optional[str]:
         return self.__target
 
     @property
-    def config(self):
+    def config(self) -> Optional[dict]:
         return self.__config
 
     @property
-    def variable_name(self):
+    def variable_name(self) -> Optional[str]:
         return self.__variable_name
 
     @final

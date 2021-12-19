@@ -1,8 +1,11 @@
 from dependency_injector import containers, providers
 import logging
 import os
+from dependency_injector.wiring import Provide, inject
+from fastapi.param_functions import Depends
 import yaml
 
+from .routes.service import RouteService
 from . import routes
 
 
@@ -17,6 +20,13 @@ class WebhookGatewayConfig(containers.DeclarativeContainer):
     routes_service = providers.Singleton(routes.RouteService, config.config_file)
 
     wiring_config = containers.WiringConfiguration(modules=[".main"])
+
+
+@inject
+def validate_config(
+    routes: RouteService = Depends(Provide[WebhookGatewayConfig.routes_service]),
+):
+    routes.validate_routes()
 
 
 def setup_logging(
