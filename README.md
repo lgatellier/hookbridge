@@ -6,7 +6,7 @@ A configurable webhook gateway. Routes HTTP webhooks from any source, to any HTT
 2. Start the gateway using Docker :
 
 ```shell
-docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro lgatellier/webhook-gateway
+docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro ghcr.io/lgatellier/webhook-gateway
 ```
 3. Configure your source webhooks to hit http://hostname:8080/route/route_name
 4. Enjoy !
