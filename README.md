@@ -130,4 +130,4 @@ You can use **Variables injection** in `headers` and `body` properties.
 ### Variables injection
 You can inject 2 types of variables in output bodies and headers :
 - Environment variables : use `#env[VARIABLE_NAME]` syntax in your configuration
-- Context variables, when defined in `input` rules
+- Context variables, when defined in `input` rules : use `#context[VARIABLE_NAME]` syntax in your configuration
