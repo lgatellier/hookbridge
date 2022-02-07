@@ -16,7 +16,7 @@ jsonpath-ng = "^1.5.3"
 requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2"
+pytest = "^7.0"
 tox = "^3.24.5"
 black = "^22.1"
 flake8 = "^4.0.1"
