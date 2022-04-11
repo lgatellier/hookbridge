@@ -15,6 +15,8 @@ docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro ghcr.io/lga
 Currently supported tags :
 - `v0.2.0`
 
+**DISCLAIMER :** This project has not been released in a stable version yet. Breaking changes can still occur until version `1.0.0` is released.
+
 ## Configuration
 You can configure the gateway using a single JSON file (usually named `routes.json`). Here is an example file :
 ```json
