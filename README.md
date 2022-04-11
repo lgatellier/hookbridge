@@ -34,16 +34,17 @@ You can configure the gateway using a single JSON file (usually named `routes.js
                 }
             }
         },
-        "output": [{
-            "name": "gitlab",
-            "url": "https://gitlab.com/api/v4/projects/my%2Fproject%2Fid/issues",
-            "headers": {
-                "Private-Token": "#env[GITLAB_API_TOKEN]"
-            },
-            "body": {
-                "title": "Hook received from #context[SOURCE_NAME]"
+        "output": {
+            "gitlab": {
+                "url": "https://gitlab.com/api/v4/projects/my%2Fproject%2Fid/issues",
+                "headers": {
+                    "Private-Token": "#env[GITLAB_API_TOKEN]"
+                },
+                "body": {
+                    "title": "Hook received from #context[SOURCE_NAME]"
+                }
             }
-        }]
+        }
     }
 }
 ```
@@ -118,8 +119,7 @@ The `context_variable` field defines the name of the context variable where the 
 ### Outputs
 The output rules describes which HTTP endpoints must be called when a request is received on the route endpoint.
 
-The `output` property is a JSON object list. Each object describe an endpoint to call. The available JSON object properties are :
-- `name` : The rule name (for logging/error handling)
+The `output` property is a JSON object. Each property of this object describes an endpoint to call. The property key is the output rule name (for logging/error handling), while the property value is a JSON object whose properties are :
 - `url` : webhook destination endpoint
 - `headers` (optional): the HTTP headers to set when sending a request to this endpoint. This property is a JSON object, with a key/value pair for each request header definition
 - `body`: the JSON body to be sent to this endpoint
@@ -133,3 +133,8 @@ You can use **Variables injection** in `headers` and `body` properties.
 You can inject 2 types of variables in output bodies and headers :
 - Environment variables : use `#env[VARIABLE_NAME]` syntax in your configuration
 - Context variables, when defined in `input` rules : use `#context[VARIABLE_NAME]` syntax in your configuration
+
+#### Output rules ordering
+The JSON file is loaded into a Python [`OrderedDict`][1], thus the output endpoints are called in the order they are declared in the `routes.json` file.
+
+[1]: https://docs.python.org/3/library/collections.html#collections.OrderedDict

@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import json
 import logging
 from os import access, R_OK
@@ -24,7 +25,7 @@ class RouteService:
 
         logger.info(f"Loading routes file '{config_file}'")
         with open(config_file, "r") as file:
-            cfg = json.load(file)
+            cfg = json.load(file, object_pairs_hook=OrderedDict)
             self.__routes = {k: Route(k, v) for k, v in cfg.items()}
         logger.info("RouteService is ready")
 

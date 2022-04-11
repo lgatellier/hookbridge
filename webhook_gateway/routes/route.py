@@ -18,7 +18,7 @@ class Route:
         self.__input_rules = [
             parse_input_rule(k, v) for k, v in cfg["input"]["body"].items()
         ]
-        self.__output_rules = [OutputRule(v) for v in cfg["output"]]
+        self.__output_rules = [OutputRule(k, v) for k, v in cfg["output"].items()]
 
     @property
     def name(self) -> str:
