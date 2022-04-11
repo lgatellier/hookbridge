@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 
 class OutputRule:
-    def __init__(self, obj: dict) -> None:
-        self.__name = obj["name"]
+    def __init__(self, name: str, obj: dict) -> None:
+        self.__name = name
         self.__url = obj["url"]
         self.__headers = obj["headers"]
         self.__body = obj["body"]

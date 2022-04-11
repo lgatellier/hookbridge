@@ -91,22 +91,21 @@ class ConfigurationRouteValidatorTest(unittest.TestCase):
                     "$.num": {"equalsTo": "12345", "context_variable": "TICKET_NUM"}
                 }
             },
-            "output": [
-                {
-                    "name": "gitlab",
+            "output": {
+                "gitlab": {
                     "url": "https://gitlab.com/api/v4/projects/lgatellier%2Ftest/issues",
                     "headers": {"Private-Token": "#env[GITLAB_API_TOKEN]"},
                     "body": {"title": "Océane #context[TICKET_NUM]"},
                     "context_variables": {"$.id": "GITLAB_ISSUE_ID"},
                 }
-            ],
+            },
         }
         if auth_headers:
             route["auth_headers"].update(auth_headers)
         if input_body:
             route["input"]["body"].update(input_body)
         if output:
-            route["output"][0].update(output)
+            route["output"]["gitlab"].update(output)
 
         return Route("testroute", route)
 
