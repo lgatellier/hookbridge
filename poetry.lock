@@ -158,7 +158,7 @@ python-versions = "*"
 
 [[package]]
 name = "fastapi"
-version = "0.81.0"
+version = "0.83.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 category = "main"
 optional = false
@@ -542,7 +542,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "c76b44ab42a88bc03fbbf92c57ca20faf4e9d363cabd5f51028cff919a72e9e1"
+content-hash = "024d9a757d683b46e3a979a8e52634d79f26dfb60c53ae0c0cd0d6eb23b69a56"
 
 [metadata.files]
 anyio = [
@@ -653,8 +653,8 @@ distlib = [
     {file = "distlib-0.3.3.zip", hash = "sha256:d982d0751ff6eaaab5e2ec8e691d949ee80eddf01a62eaa96ddb11531fe16b05"},
 ]
 fastapi = [
-    {file = "fastapi-0.81.0-py3-none-any.whl", hash = "sha256:9ac5f5d252b4b394df29accb1ed4bedf30e0e87fc6eb7ec75e1449fa040bfc17"},
-    {file = "fastapi-0.81.0.tar.gz", hash = "sha256:9dafdc41feda85ee5acf0f7dd6bcb7fd946318a6664b41fd33e33b26f666a346"},
+    {file = "fastapi-0.83.0-py3-none-any.whl", hash = "sha256:694a2b6c2607a61029a4be1c6613f84d74019cb9f7a41c7a475dca8e715f9368"},
+    {file = "fastapi-0.83.0.tar.gz", hash = "sha256:96eb692350fe13d7a9843c3c87a874f0d45102975257dd224903efd6c0fde3bd"},
 ]
 filelock = [
     {file = "filelock-3.3.2-py3-none-any.whl", hash = "sha256:bb2a1c717df74c48a2d00ed625e5a66f8572a3a30baacb7657add1d7bac4097b"},
