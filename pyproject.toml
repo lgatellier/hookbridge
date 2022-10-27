@@ -8,7 +8,7 @@ classifiers = ["License :: OSI Approved :: Apache Software License", "Developmen
 [tool.poetry.dependencies]
 python = "^3.9"
 fastapi = ">=0.70,<0.82"
-uvicorn = ">=0.15,<0.19"
+uvicorn = ">=0.15,<0.20"
 dependency-injector = "^4.37.0"
 PyYAML = "^6.0"
 coloredlogs = "^15.0.1"
