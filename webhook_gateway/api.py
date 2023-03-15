@@ -18,7 +18,6 @@ async def dispatch(
     req: Request,
     routes: RouteService = Depends(Provide[WebhookGatewayConfig.routes_service]),
 ):
-
     wrapper_req = WebhookRequest(req)
     await wrapper_req.init()  # Awaits request body
     call_results = routes.dispatch(route_name, wrapper_req)
