@@ -2,9 +2,9 @@ from datetime import datetime
 from dependency_injector.wiring import inject, Provide
 from fastapi import Depends, FastAPI, Request
 
-from .configuration import WebhookGatewayConfig
-from .request import WebhookRequest
-from .routes.service import RouteService
+from webhook_gateway.configuration import WebhookGatewayConfig
+from webhook_gateway.request import WebhookRequest
+from webhook_gateway.routes.service import RouteService
 
 
 api = FastAPI()
