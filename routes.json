@@ -1,5 +1,5 @@
 {
-    "oceane": {
+    "tickettogitlab": {
         "auth_headers": {
             "X-Api-Token": "MySuperToken"
         },
@@ -18,7 +18,7 @@
                     "Private-Token": "#env[GITLAB_API_TOKEN]"
                 },
                 "body": {
-                    "title": "Océane #context[TICKET_NUM]"
+                    "title": "Ticket #context[TICKET_NUM]"
                 },
                 "context_variables": {
                     "$.id": "GITLAB_ISSUE_ID"

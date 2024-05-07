@@ -1,7 +1,11 @@
 import logging
 
-from .configuration import WebhookGatewayConfig, setup_logging, validate_config
-from . import __version__, api
+from webhook_gateway.configuration import (
+    WebhookGatewayConfig,
+    setup_logging,
+    validate_config,
+)
+from webhook_gateway import __version__, api
 
 setup_logging()
 
@@ -10,5 +14,6 @@ logger.info(f"Starting up webhook_gateway {__version__}")
 
 app = api.api
 app.configuration = WebhookGatewayConfig()
-app.configuration.wire(modules=[".api"])
+app.configuration.init_resources()
+app.configuration.wire(modules=["webhook_gateway", "webhook_gateway.configuration", "webhook_gateway.api"])
 validate_config()

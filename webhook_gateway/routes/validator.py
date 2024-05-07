@@ -2,9 +2,9 @@ from os import environ as env
 from typing import Union
 
 from webhook_gateway.exceptions import ConfigurationException
-from .route import Route
-from .rules import OutputRule
-from ..context import INJECTION_PATTERN
+from webhook_gateway.routes.route import Route
+from webhook_gateway.routes.rules import OutputRule
+from webhook_gateway.context import INJECTION_PATTERN
 
 
 def validate_route(route: Route) -> None:
