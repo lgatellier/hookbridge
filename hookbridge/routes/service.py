@@ -4,6 +4,7 @@ import json
 import logging
 from os import access, R_OK
 from os.path import abspath, isfile
+import yaml
 
 from hookbridge.routes.rules.output import CallResult
 
@@ -60,7 +61,12 @@ class RouteService:
         config_file="./routes.json", config_dir="./routes.d"
     ) -> list[str]:
         logger.info("Listing available route files")
-        config_file_list = [config_file, *glob(f"{config_dir}/*.json")]
+        config_file_list = [
+            config_file,
+            *glob(f"{config_dir}/*.json"),
+            *glob(f"{config_dir}/*.yaml"),
+            *glob(f"{config_dir}/*.yml"),
+        ]
         readable_config_files = [
             abspath(f) for f in config_file_list if isfile(f) and access(f, R_OK)
         ]
@@ -75,5 +81,8 @@ class RouteService:
     def parse_routes_file(config_file: str) -> dict[str, Route]:
         logger.info(f"Loading route file '{config_file}'")
         with open(config_file, "r") as file:
-            cfg = json.load(file, object_pairs_hook=OrderedDict)
+            if config_file.endswith(".json"):
+                cfg = json.load(file, object_pairs_hook=OrderedDict)
+            else:
+                cfg = yaml.safe_load(file)
             return {k: Route(k, v) for k, v in cfg.items()}
