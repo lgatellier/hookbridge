@@ -1,9 +1,9 @@
 from os import environ as env
 import unittest
-from webhook_gateway.routes.route import Route
+from hookbridge.routes.route import Route
 
-from webhook_gateway.routes.validator import validate_config, validate_route
-from webhook_gateway.exceptions import ConfigurationException
+from hookbridge.routes.validator import validate_config, validate_route
+from hookbridge.exceptions import ConfigurationException
 
 
 class ConfigurationValidatorTest(unittest.TestCase):

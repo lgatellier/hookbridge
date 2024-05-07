@@ -15,7 +15,7 @@ This project uses :
   - Install poetry : `pip install poetry`
   - Install dependencies : `poetry install`
   - Open a shell in project dédicated virtual env : `poetry shell`
-- [Uvicorn] server with live reload for development : `uvicorn --reload webhook_gateway.main:app`
+- [Uvicorn] server with live reload for development : `uvicorn --reload hookbridge.main:app`
 - [FastAPI] to expose HTTP REST API
 - [Dependency Injector] for... dependency injection :wink:
 

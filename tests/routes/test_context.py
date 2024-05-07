@@ -1,7 +1,7 @@
 import unittest
 from os import environ as env
 
-from webhook_gateway.context import ExecutionContext
+from hookbridge.context import ExecutionContext
 
 
 class ExecutionContextTest(unittest.TestCase):

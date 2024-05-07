@@ -23,7 +23,7 @@ root:
   propagate: no
 
 loggers:
-  webhook_gateway:
+  hookbridge:
     level: INFO
     handlers: [console]
     propagate: no

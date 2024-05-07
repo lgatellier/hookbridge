@@ -25,6 +25,6 @@ COPY --from=builder /app/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY logging.yml /app/
-COPY webhook_gateway /app/webhook_gateway/
+COPY hookbridge /app/hookbridge/
 
-CMD [ "uvicorn", "webhook_gateway.main:app", "--host", "0.0.0.0", "--port", "80" ]
+CMD [ "uvicorn", "hookbridge.main:app", "--host", "0.0.0.0", "--port", "80" ]

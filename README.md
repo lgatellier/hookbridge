@@ -1,12 +1,12 @@
-# Webhook Gateway
-A configurable webhook gateway. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !
+# HookBridge
+A configurable webhook bridge. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !
 
 ## Usage
 1. Define your routes in a `routes.json` file (see **Configuration**)
-2. Start the gateway using Docker :
+2. Start the bridge using Docker :
 
 ```shell
-docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro ghcr.io/lgatellier/webhook-gateway
+docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro ghcr.io/lgatellier/hookbridge
 ```
 3. Configure your source webhooks to hit http://hostname:8080/route/route_name
 4. Enjoy !
@@ -18,7 +18,7 @@ Currently supported tags :
 **DISCLAIMER :** This project has not been released in a stable version yet. Breaking changes can still occur until version `1.0.0` is released.
 
 ## Configuration
-You can configure the gateway using a single JSON file (usually named `routes.json`). Here is an example file :
+You can configure the bridge using a single JSON file (usually named `routes.json`). Here is an example file :
 ```json
 {
     "example_route": {
@@ -60,7 +60,7 @@ This example configuration defines a webhook endpoint with the following behavio
   - The sent JSON body will contain a unique field `title`, containing the `source_name` field received in initial request
 
 ### Routes
-The routes.json file describes all the available routes in your gateway. Each route has a name, and some input and output configuration parameters :
+The routes.json file describes all the available routes in your bridge. Each route has a name, and some input and output configuration parameters :
 - `auth_headers` : the HTTP headers used for clients authentication. You can define here, for example, an API token (often sent by the webhook emitters)
 - `input` : some rules and conditions to apply to all received requests. See **inputs**.
 - `output` : a list of webhooks to trigger when a valid (see **inputs**) request is received. See **outputs**.
@@ -92,7 +92,7 @@ Each key/value pair under the `input[body]` object is made of :
 ```
 
 #### Rule type
-The minimum description for a rule is its type. The gateway handles only 2 types at the moment :
+The minimum description for a rule is its type. The bridge handles only 2 types at the moment :
 - `present` : The field designated by the JSONPath must exist in all received requests
 - `equalsTo` :  The field designated by the JSONPath must be equal to the associated `equalsTo` JSON property
 

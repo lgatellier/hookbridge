@@ -4,7 +4,7 @@ import logging
 from starlette.datastructures import Headers
 from typing import Dict
 
-from webhook_gateway.context import ExecutionContext
+from hookbridge.context import ExecutionContext
 
 logger = logging.getLogger(__name__)
 

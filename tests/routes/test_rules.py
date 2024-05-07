@@ -2,8 +2,8 @@ import unittest
 
 from ..mocks import MockedHTTPRequest
 
-from webhook_gateway.routes.exceptions import RequestDoNotMatchRouteException
-from webhook_gateway.routes.rules import (
+from hookbridge.routes.exceptions import RequestDoNotMatchRouteException
+from hookbridge.routes.rules import (
     BodyPropertyEqualsToInputRule,
     BodyPropertyPresentInputRule,
 )

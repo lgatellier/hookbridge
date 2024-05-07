@@ -4,7 +4,7 @@ import os
 from dependency_injector.wiring import Provide, inject
 import yaml
 
-from webhook_gateway.routes import RouteService
+from hookbridge.routes import RouteService
 
 
 class WebhookGatewayConfig(containers.DeclarativeContainer):

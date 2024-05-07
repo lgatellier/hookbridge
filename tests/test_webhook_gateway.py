@@ -1,4 +1,4 @@
-from webhook_gateway import __version__
+from hookbridge import __version__
 
 
 def test_version():

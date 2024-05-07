@@ -5,12 +5,12 @@ import logging
 from os import access, R_OK
 from os.path import abspath, isfile
 
-from webhook_gateway.routes.rules.output import CallResult
+from hookbridge.routes.rules.output import CallResult
 
-from webhook_gateway.routes.route import Route
-from webhook_gateway.routes.validator import validate_route
-from webhook_gateway.routes.exceptions import NonExistingRouteException
-from webhook_gateway.request import WebhookRequest
+from hookbridge.routes.route import Route
+from hookbridge.routes.validator import validate_route
+from hookbridge.routes.exceptions import NonExistingRouteException
+from hookbridge.request import WebhookRequest
 
 logger = logging.getLogger(__name__)
 
