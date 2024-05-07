@@ -11,9 +11,9 @@ docker run -itd -p 8080:80 -v $(pwd)/routes.json:/app/routes.json:ro ghcr.io/lga
 3. Configure your source webhooks to hit http://hostname:8080/route/route_name
 4. Enjoy !
 
-### Supported tags
-Currently supported tags :
-- `v0.2.0`
+### Supported versions
+Currently supported versions :
+- `0.3.0`
 
 **DISCLAIMER :** This project has not been released in a stable version yet. Breaking changes can still occur until version `1.0.0` is released.
 
