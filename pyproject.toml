@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "webhook-gateway"
+name = "hookbridge"
 version = "0.1.0"
-description = "A configurable webhook gateway. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !"
+description = "A configurable webhook bridge. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !"
 authors = ["Léo GATELLIER <github@leogatellier.fr>"]
 classifiers = ["License :: OSI Approved :: Apache Software License", "Development Status :: 2 - Pre-Alpha", "Topic :: Internet :: WWW/HTTP", "Topic :: System :: Networking"]
 
