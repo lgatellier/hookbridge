@@ -1,7 +1,7 @@
 import logging
 
 from hookbridge.configuration import (
-    WebhookGatewayConfig,
+    HookBridgeConfig,
     setup_logging,
     validate_config,
 )
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 logger.info(f"Starting up HookBridge {__version__}")
 
 app = api.api
-app.configuration = WebhookGatewayConfig()
+app.configuration = HookBridgeConfig()
 app.configuration.init_resources()
 app.configuration.wire(
     modules=["hookbridge", "hookbridge.configuration", "hookbridge.api"]

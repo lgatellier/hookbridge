@@ -7,7 +7,7 @@ import yaml
 from hookbridge.routes import RouteService
 
 
-class WebhookGatewayConfig(containers.DeclarativeContainer):
+class HookBridgeConfig(containers.DeclarativeContainer):
     """
     Application dependency injection configuration
     """
@@ -24,7 +24,7 @@ class WebhookGatewayConfig(containers.DeclarativeContainer):
 
 @inject
 def validate_config(
-    routes: RouteService = Provide[WebhookGatewayConfig.routes_service],
+    routes: RouteService = Provide[HookBridgeConfig.routes_service],
 ):
     routes.validate_routes()
 

@@ -2,7 +2,7 @@ from datetime import datetime
 from dependency_injector.wiring import inject, Provide
 from fastapi import Depends, FastAPI, Request
 
-from hookbridge.configuration import WebhookGatewayConfig
+from hookbridge.configuration import HookBridgeConfig
 from hookbridge.request import WebhookRequest
 from hookbridge.routes.service import RouteService
 
@@ -16,7 +16,7 @@ start_time = datetime.now()
 async def dispatch(
     route_name: str,
     req: Request,
-    routes: RouteService = Depends(Provide[WebhookGatewayConfig.routes_service]),
+    routes: RouteService = Depends(Provide[HookBridgeConfig.routes_service]),
 ):
     wrapper_req = WebhookRequest(req)
     await wrapper_req.await_body()  # Awaits request body
@@ -27,7 +27,7 @@ async def dispatch(
 @api.get("/status")
 @inject
 async def status(
-    routes: RouteService = Depends(Provide[WebhookGatewayConfig.routes_service]),
+    routes: RouteService = Depends(Provide[HookBridgeConfig.routes_service]),
 ):
     delta = datetime.now() - start_time
     delta_str_without_micros = str(delta).split(".")[0]
