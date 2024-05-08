@@ -31,5 +31,5 @@ class WebhookRequest(Request):
     def context(self) -> ExecutionContext:
         return self.__context
 
-    async def init(self):
+    async def await_body(self):
         self.__body = json.loads(await self.__req.body())
