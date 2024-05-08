@@ -6,8 +6,7 @@
         "input": {
             "body": {
                 "$.num": {
-                    "equalsTo": "12345",
-                    "context_variable": "TICKET_NUM"
+                    "equalsTo": "12345"
                 }
             }
         },
@@ -18,7 +17,20 @@
                     "Private-Token": "#env[GITLAB_API_TOKEN]"
                 },
                 "body": {
-                    "title": "Ticket #context[TICKET_NUM]"
+                    "title": "Ticket #input.num"
+                },
+                "context_variables": {
+                    "$.id": "GITLAB_ISSUE_ID"
+                }
+            },
+            "gitlab2": {
+                "url": "https://gitlab.com/api/v4/projects/lgatellier%2Ftest/issues",
+                "headers": {
+                    "Private-Token": "#env[GITLAB_API_TOKEN]"
+                },
+                "body": {
+                    "title": "Sub-ticket #input.num",
+                    "description": "Relates to issue #output[gitlab].iid"
                 },
                 "context_variables": {
                     "$.id": "GITLAB_ISSUE_ID"

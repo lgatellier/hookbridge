@@ -18,3 +18,10 @@ class UnauthorizedAccessException(HTTPExceptionWithParameters):
 
 class ConfigurationException(Exception):
     pass
+
+
+class UnResolvableInjectionException(HTTPExceptionWithParameters):
+    def __init__(self, injectpath, *parameters) -> None:
+        super().__init__(
+            f"Could not resolve injection {injectpath}", *parameters, http_status=500
+        )

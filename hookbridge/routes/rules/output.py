@@ -47,6 +47,7 @@ class OutputRule:
         logger.debug(f"apply: {self.name} got HTTP status {response.status_code}")
         try:
             json_object = json.loads(response.content)
+            req.context.add_output(self.name, json_object)
             for var_name, json_path_expr in self.__variables.items():
                 matches = json_path_expr.find(json_object)
                 var_value = matches[0].value if len(matches) > 0 else None
