@@ -16,10 +16,13 @@ class OutputRule:
         self.__url = obj["url"]
         self.__headers = obj["headers"]
         self.__body = obj["body"]
-        self.__variables = {
-            var_name: parse(json_path)
-            for json_path, var_name in obj["context_variables"].items()
-        }
+        if "context_variables" in obj:
+            self.__variables = {
+                var_name: parse(json_path)
+                for json_path, var_name in obj["context_variables"].items()
+            }
+        else:
+            self.__variables = {}
 
     @property
     def name(self) -> str:
