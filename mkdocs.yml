@@ -1,4 +1,5 @@
 ---
 site_name: HookBridge Docs
+site_url: https://lgatellier.github.io/hookbridge
 theme:
-  name: readthedocs
+  name: material
