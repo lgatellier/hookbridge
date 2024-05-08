@@ -6,7 +6,7 @@ authors = ["Léo GATELLIER <github@leogatellier.fr>"]
 classifiers = ["License :: OSI Approved :: Apache Software License", "Development Status :: 2 - Pre-Alpha", "Topic :: Internet :: WWW/HTTP", "Topic :: System :: Networking"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 fastapi = ">=0.70,<0.112"
 uvicorn = ">=0.15,<0.30"
 dependency-injector = "^4.37.0"

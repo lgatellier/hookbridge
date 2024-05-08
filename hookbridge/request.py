@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 class WebhookRequest(Request):
     def __init__(self, req: Request) -> None:
         self.__req = req
-        self.__body = None
-        self.__context = ExecutionContext()
+        self.__context = None
 
     @property
     def headers(self) -> Headers:
@@ -24,12 +23,8 @@ class WebhookRequest(Request):
         return self.__req.cookies
 
     @property
-    def body(self) -> bytes:
-        return self.__body
-
-    @property
     def context(self) -> ExecutionContext:
         return self.__context
 
-    async def await_body(self):
-        self.__body = json.loads(await self.__req.body())
+    async def init_context(self):
+        self.__context = ExecutionContext(input=json.loads(await self.__req.body()))

@@ -3,10 +3,9 @@ import logging
 from jsonpath_ng import parse
 from typing import Optional, final
 
-from jsonpath_ng.jsonpath import DatumInContext
-
-from ...request import WebhookRequest
-from ..exceptions import RequestDoNotMatchRouteException
+from hookbridge.request import WebhookRequest
+from hookbridge.routes.exceptions import RequestDoNotMatchRouteException
+from hookbridge.exceptions import UnResolvableInjectionException
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +24,10 @@ class InputRule:
         logger.debug(f"Loading rule {self.__name} with target {target}")
 
     @property
+    def name(self):
+        return self.__name
+
+    @property
     def target(self) -> Optional[str]:
         return self.__target
 
@@ -39,7 +42,7 @@ class InputRule:
     @final
     def apply(self, req: WebhookRequest) -> None:
         if not self._do_apply(req):
-            raise RequestDoNotMatchRouteException(self.__name, self.__target)
+            raise RequestDoNotMatchRouteException(self.name, self.target)
 
     @abc.abstractmethod
     def _do_apply(self, req) -> bool:
@@ -55,34 +58,32 @@ class RouteBodyInputRule(InputRule):
 
     @final
     def _do_apply(self, req: WebhookRequest) -> bool:
-        matches: list[DatumInContext] = self.__json_path_expr.find(req.body)
+        try:
+            value = req.context.resolve_input(self.__json_path_expr)
+        except UnResolvableInjectionException:
+            raise RequestDoNotMatchRouteException(self.name, self.target)
 
         if self.variable_name:
-            var_value = matches[0].value if len(matches) > 0 else None
-            req.context.set(self.variable_name, var_value)
+            req.context.set(self.variable_name, value)
 
-        return self._matches_property(matches)
+        return self._matches_property(value)
 
     @abc.abstractmethod
-    def _matches_property(self, matches: list) -> bool:
+    def _matches_property(self, value: any) -> bool:
         return False
 
 
 class BodyPropertyPresentInputRule(RouteBodyInputRule):
-    def _matches_property(self, matches: list) -> bool:
-        return len(matches) > 0
+    def _matches_property(self, value: any) -> bool:
+        return bool(value)
 
 
 class BodyPropertyEqualsToInputRule(RouteBodyInputRule):
-    def _matches_property(self, matches: list) -> bool:
-        if len(matches) == 0:
+    def _matches_property(self, value: any) -> bool:
+        if not value:
             return False
 
-        for m in matches:
-            if m.value != self.config["equalsTo"]:
-                return False
-
-        return True
+        return value == self.config["equalsTo"]
 
 
 input_rules = {

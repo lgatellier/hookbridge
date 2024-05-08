@@ -42,7 +42,9 @@ def validate_config(
     elif not isinstance(config, str):
         raise Exception(f"Invalid type {type(config)} for config object")
 
-    for source, var_name in INJECTION_PATTERN.findall(config):
+    for source, unused_brackets, var_name, jsonpath in INJECTION_PATTERN.findall(
+        config
+    ):
         if source == "context" and var_name not in var_names:
             raise ConfigurationException(
                 f"Route {route_name} : variable {var_name} is used but never declared"
@@ -51,7 +53,7 @@ def validate_config(
             raise ConfigurationException(
                 f"Route {route_name} : environment variable {var_name} does not exist"
             )
-        elif source not in ["context", "env"]:
+        elif source not in ["context", "env", "input", "output"]:
             raise ConfigurationException(
                 f"Route {route_name} : variable source {source} does not exist"
             )
