@@ -9,7 +9,7 @@ classifiers = ["License :: OSI Approved :: Apache Software License", "Developmen
 python = "^3.10"
 fastapi = ">=0.70,<0.113"
 uvicorn = ">=0.15,<0.31"
-dependency-injector = "^4.37.0"
+dependency-injector = "^4.42.0"
 PyYAML = "^6.0"
 coloredlogs = "^15.0.1"
 jsonpath-ng = "^1.5.3"
