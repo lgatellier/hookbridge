@@ -1,0 +1,1 @@
+{"config":{"lang":["en"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"]},"docs":[{"location":"","title":"HookBridge Docs","text":"<p>A configurable webhook bridge. Routes HTTP webhooks from any source, to any HTTP REST/JSON destination !</p> <p>See GitHub project at lgatellier/hookbridge.</p>"}]}
